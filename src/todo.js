@@ -1,5 +1,5 @@
-export const createTodo = (title, description, dueDate, priority, notes = '') => {
-  let completed = false;
+export const createTodo = (title, description, dueDate, priority, notes = '', initialCompleted = false) => {
+  let completed = initialCompleted;
 
   const toggleCompleted = () => {
     completed = !completed;
