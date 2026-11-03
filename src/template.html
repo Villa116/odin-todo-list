@@ -6,6 +6,24 @@
   <title>Odin Todo List</title>
 </head>
 <body>
-  <div id="content"></div>
+  <div id="app">
+    <!-- Sidebar for Projects -->
+    <aside class="sidebar">
+      <h2>Projects</h2>
+      <ul id="projects-list"></ul>
+      <button id="add-project-btn">+ New Project</button>
+    </aside>
+
+    <!-- Main Content Area for Tasks -->
+    <main class="content">
+      <header id="project-header">
+        <h1 id="project-title">Inbox</h1>
+      </header>
+
+      <div id="todos-container"></div>
+      
+      <button id="add-todo-btn">+ Add Task</button>
+    </main>
+  </div>
 </body>
 </html>

@@ -1,0 +1,40 @@
+.todo-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: all 0.2s ease;
+}
+
+.todo-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.todo-title {
+  flex: 1;
+  font-weight: 600;
+}
+
+.todo-card.completed .todo-title {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.todo-details {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #eee;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.todo-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
