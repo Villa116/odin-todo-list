@@ -25,9 +25,21 @@ export const AppController = (() => {
     Storage.saveProjects(projects);
     return newProject;
   };
-
+  
   const deleteProject = (index) => {
+    const isDeletingActive = projects[index] === activeProject;
     projects.splice(index, 1);
+
+    // If we deleted all projects, recreate a default Inbox
+    if (projects.length === 0) {
+      const defaultProject = createProject('Inbox');
+      projects.push(defaultProject);
+      activeProject = defaultProject;
+    } else if (isDeletingActive) {
+      // If we deleted the active project, fallback to the first project
+      activeProject = projects[0];
+    }
+
     Storage.saveProjects(projects);
   };
 

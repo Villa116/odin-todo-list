@@ -11,17 +11,35 @@ export const DOMController = (() => {
 
     projects.forEach((project, index) => {
       const li = document.createElement('li');
-      li.textContent = project.getName();
       li.classList.add('project-item');
 
       if (project === activeProject) {
         li.classList.add('active');
       }
 
-      li.addEventListener('click', () => {
+      // Project name text / click handler to switch view
+      const nameSpan = document.createElement('span');
+      nameSpan.textContent = project.getName();
+      nameSpan.style.flex = '1';
+      nameSpan.addEventListener('click', () => {
         AppController.setActiveProject(index);
         render();
       });
+      li.appendChild(nameSpan);
+
+      // Delete project button (show for all, or ensure at least one remains handled by appController)
+      const deleteBtn = document.createElement('button');
+      deleteBtn.textContent = '×';
+      deleteBtn.classList.add('delete-project-btn');
+      deleteBtn.title = 'Delete project';
+      deleteBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent triggering the li click
+        if (confirm(`Are you sure you want to delete "${project.getName()}"?`)) {
+          AppController.deleteProject(index);
+          render();
+        }
+      });
+      li.appendChild(deleteBtn);
 
       projectsList.appendChild(li);
     });
@@ -127,7 +145,7 @@ export const DOMController = (() => {
   const init = () => {
     render();
 
-    // Event listener for adding a quick test project
+    // Event listener for adding a project (keeping prompt for quick creation, or you can modalize this too)
     const addProjectBtn = document.getElementById('add-project-btn');
     addProjectBtn.addEventListener('click', () => {
       const projectName = prompt('Enter project name:');
@@ -137,15 +155,38 @@ export const DOMController = (() => {
       }
     });
 
-    // Event listener for adding a quick test todo
+    // --- Modal Logic for Tasks ---
+    const todoModal = document.getElementById('todo-modal');
+    const todoForm = document.getElementById('todo-form');
     const addTodoBtn = document.getElementById('add-todo-btn');
+    const cancelTodoBtn = document.getElementById('cancel-todo-btn');
+
+    // Open modal
     addTodoBtn.addEventListener('click', () => {
-      const title = prompt('Task title:');
-      if (title) {
-        const newTodo = createTodo(title, prompt('Description:'), prompt('Due date (YYYY-MM-DD):'), 'Medium');
-        AppController.addTodoToActiveProject(newTodo);
-        renderTodos();
-      }
+      todoForm.reset();
+      todoModal.showModal();
+    });
+
+    // Close modal on cancel
+    cancelTodoBtn.addEventListener('click', () => {
+      todoModal.close();
+    });
+
+    // Handle form submission
+    todoForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const title = document.getElementById('todo-title').value;
+      const description = document.getElementById('todo-description').value;
+      const dueDate = document.getElementById('todo-duedate').value;
+      const priority = document.getElementById('todo-priority').value;
+      const notes = document.getElementById('todo-notes').value;
+
+      const newTodo = createTodo(title, description, dueDate, priority, notes);
+      AppController.addTodoToActiveProject(newTodo);
+
+      todoModal.close();
+      renderTodos();
     });
   };
 

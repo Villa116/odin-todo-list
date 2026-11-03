@@ -1,40 +1,412 @@
+
+:root {
+  --bg-sidebar: #0f172a;       /* Deep slate */
+  --sidebar-text: #94a3b8;
+  --sidebar-hover: #1e293b;
+  --sidebar-active: #334155;
+  --accent-color: #10b981;     /* Vibrant Emerald */
+  --accent-hover: #059669;
+  --bg-main: #f8fafc;         /* Crisp off-white */
+  --card-bg: #ffffff;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --radius: 8px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* App Layout Container */
+#app {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* --- SIDEBAR --- */
+.sidebar {
+  width: 280px;
+  background-color: var(--bg-sidebar);
+  color: var(--sidebar-text);
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid #1e293b;
+}
+
+.sidebar h2 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  margin-bottom: 12px;
+  padding-left: 8px;
+}
+
+#projects-list {
+  list-style: none;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.project-item {
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  margin-bottom: 4px;
+  font-weight: 500;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.project-item:hover {
+  background-color: var(--sidebar-hover);
+  color: #f1f5f9;
+}
+
+.project-item.active {
+  background-color: var(--sidebar-active);
+  color: #ffffff;
+  font-weight: 600;
+  border-left: 4px solid var(--accent-color);
+}
+
+/* --- MAIN CONTENT --- */
+.content {
+  flex: 1;
+  background-color: var(--bg-main);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+#project-header {
+  margin-bottom: 24px;
+}
+
+#project-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+#todos-container {
+  flex: 1;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* --- TODO CARDS --- */
 .todo-card {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 12px 16px;
-  margin-bottom: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  transition: all 0.2s ease;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.todo-card:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border-color: #cbd5e1;
 }
 
 .todo-main {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
+}
+
+.todo-main input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent-color);
   cursor: pointer;
 }
 
 .todo-title {
   flex: 1;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-main);
 }
 
 .todo-card.completed .todo-title {
   text-decoration: line-through;
-  color: #888;
+  color: var(--text-muted);
+}
+
+.due-date {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Priority Badges */
+.priority {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.priority.high {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.priority.medium {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.priority.low {
+  background-color: #f1f5f9;
+  color: #475569;
+}
+
+/* Expand & Action Buttons */
+.expand-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.expand-btn:hover {
+  background-color: #f1f5f9;
+  color: var(--text-main);
 }
 
 .todo-details {
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid #eee;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-color);
   font-size: 0.9rem;
-  color: #444;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .todo-actions {
   display: flex;
   gap: 8px;
-  margin-top: 10px;
+  margin-top: 8px;
+}
+
+/* --- BUTTONS --- */
+button {
+  cursor: pointer;
+  font-weight: 500;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  transition: background 0.15s ease;
+}
+
+#add-project-btn, #add-todo-btn {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  font-weight: 600;
+}
+
+#add-project-btn:hover, #add-todo-btn:hover {
+  background-color: var(--accent-hover);
+}
+
+.edit-btn {
+  background-color: #f1f5f9;
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 6px 12px;
+}
+
+.edit-btn:hover {
+  background-color: #e2e8f0;
+}
+
+.delete-btn {
+  background-color: #fff;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+  padding: 6px 12px;
+}
+
+.delete-btn:hover {
+  background-color: #fee2e2;
+}
+
+/* --- MODAL STYLING --- */
+dialog {
+  border: none;
+  border-radius: 12px;
+  padding: 24px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  background: var(--card-bg);
+  color: var(--text-main);
+  animation: modalFadeIn 0.2s ease;
+}
+
+dialog::backdrop {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(2px);
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#todo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#todo-form h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  color: var(--text-main);
+  background-color: #ffffff;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.primary-btn {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  font-weight: 600;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.primary-btn:hover {
+  background-color: var(--accent-hover);
+}
+
+.secondary-btn {
+  background-color: #f1f5f9;
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 10px 18px;
+  font-weight: 500;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.secondary-btn:hover {
+  background-color: #e2e8f0;
+}
+
+/* --- SIDEBAR PROJECT DELETE BUTTON --- */
+.project-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  margin-bottom: 4px;
+  font-weight: 500;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.delete-project-btn {
+  background: none;
+  border: none;
+  color: var(--sidebar-text);
+  font-size: 1.1rem;
+  cursor: pointer;
+  opacity: 0;
+  padding: 0 6px;
+  border-radius: 4px;
+  transition: opacity 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.project-item:hover .delete-project-btn {
+  opacity: 1;
+}
+
+.delete-project-btn:hover {
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
 }
