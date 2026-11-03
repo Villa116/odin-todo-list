@@ -42,7 +42,7 @@ The interface utilizes a fixed sidebar layout coupled with a dynamic task viewpo
 
 ## 🚀 Live Demo
 
-[👉 Click here to view the live deployment of the Todo List App!](https://yourusername.github.io/odin-todo-list/)
+[👉 Click here to view the live deployment of the Todo List App!](https://villa116.github.io/odin-todo-list/)
 
 ---
 
